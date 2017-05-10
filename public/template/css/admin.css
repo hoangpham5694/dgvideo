@@ -1,0 +1,69 @@
+.navbar-default {
+    background-color: #77909c;
+    border-color: #568388;
+}
+a {
+ 
+    text-decoration: none;
+}
+
+.navbar a{
+	   color: #eaeaea;
+}
+.navbar-default .navbar-brand {
+    color: #fff;
+}
+.nav li a:hover{
+	background-color: #9db4bf;
+}
+body{
+  background-color: #77909c;
+}
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
+    color: #e6e6e6;
+    background-color: transparent;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #9db4bf;
+    }
+    .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+    background-color: #9db4bf;
+    border-color: #568388;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: #668898;
+}
+.info-course ul{
+    padding-left: 0;
+}
+.teacher-info .image{
+    text-align: center;
+    border-right: 1px solid #eee;
+}
+.teacher-info .image img{
+   width:70%;
+    max-width: 200px;
+}
+.teacher-info .info table tr td{
+    padding-right: 30px;
+    line-height: 30px;
+}
+.teacher-info .info table{
+    margin-left: 5px;
+}
+.teacher-sumary .row{
+    margin: 10px 0;
+}
+.teacher-sumary h3{
+    margin-left: 10px;
+}
+.teacher-sumary .courses  {
+    padding-left: 15px;
+}
+.sidebar ul li a.active{
+    background-color: #89a5b1;
+}

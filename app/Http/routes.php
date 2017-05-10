@@ -14,11 +14,43 @@
 Route::get('/', function () {
     return view('index');
 });
+Route::get('login',['uses'=>'LoginController@getLogin']);
+Route::post('login',['uses'=>'LoginController@postLogin']);
+Route::group(['middleware'=>'isroleadmin'], function(){
+	Route::group(['prefix' => 'adminsites'], function(){
+		Route::get('/', function(){
+    		return view('admins.dashboard.main');
+    	});
+    	Route::group(['prefix' => 'category'], function(){
+    		Route::get('list',['uses'=>'CategoryController@getCateList']);
 
-Route::get('list',['uses'=> 'SinhVienController@getList']);
-Route::post('add',['uses'=> 'SinhVienController@getAdd']);
-Route::get('edit/{id}',['uses'=> 'SinhVienController@getEdit']);
-Route::post('edit/{id}',['uses'=> 'SinhVienController@postEdit']);
-Route::get('delete/{id}',['uses'=> 'SinhVienController@getDelete']);
-
+    		Route::group(['prefix' => 'ajax'], function(){
+    			Route::get('list/{max}/{page}',['uses'=>'CategoryController@getCateListAjax']);
+    			Route::get('total',['uses'=>'CategoryController@getTotalCategoriesAjax']);
+    			Route::get('add',['uses'=>'CategoryController@getAddCateAjax']);
+                Route::get('edit',['uses'=>'CategoryController@getEditCateAjax']);
+                Route::get('delete/{id}',['uses'=>'CategoryController@getDeleteCateAjax']);
+    		});
+    	});
+	});
+});
+Route::group(['middleware'=>'isrolemanager'], function(){
+	Route::group(['prefix' => 'managersites'], function(){
+		Route::get('/', function(){
+    		return view('managers.dashboard.main');
+    	});
+        Route::group(['prefix' => 'video'], function(){
+            Route::get('list',['uses'=>'VideoController@getVideoListManager']);
+            Route::get('add',['uses'=>'VideoController@getAddVideoManager']);
+            Route::post('add',['uses'=>'VideoController@postAddVideoManager']);
+            Route::get('edit/{id}',['uses'=>'VideoController@getEditVideoManager']);
+            Route::post('edit/{id}',['uses'=>'VideoController@postEditVideoManager']);
+            Route::group(['prefix' => 'ajax'], function(){
+                Route::get('list/{max}/{page}',['uses'=>'VideoController@getVideoListAjax']);
+                Route::get('total',['uses'=>'VideoController@getTotalVideosAjax']);
+                Route::get('delete/{id}',['uses'=>'VideoController@getDeleteVideosAjax']);
+            });
+        });
+	});
+});
 
