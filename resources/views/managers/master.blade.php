@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
+    <script src="<?php echo asset('public/template/vendor/jquery/jquery.min.js') ; ?>"></script>
 
     <link href="<?php echo asset('public/template/vendor/bootstrap/css/bootstrap.min.css') ; ?>" rel="stylesheet">
 
@@ -129,7 +129,7 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="<?php echo asset('public/template/vendor/jquery/jquery.min.js') ; ?>"></script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo asset('public/template/vendor/bootstrap/js/bootstrap.min.js') ; ?>"></script>

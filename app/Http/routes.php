@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('login.login');
 });
 Route::get('login',['uses'=>'LoginController@getLogin']);
 Route::post('login',['uses'=>'LoginController@postLogin']);
@@ -23,7 +23,7 @@ Route::group(['middleware'=>'isroleadmin'], function(){
     	});
     	Route::group(['prefix' => 'category'], function(){
     		Route::get('list',['uses'=>'CategoryController@getCateList']);
-
+            
     		Route::group(['prefix' => 'ajax'], function(){
     			Route::get('list/{max}/{page}',['uses'=>'CategoryController@getCateListAjax']);
     			Route::get('total',['uses'=>'CategoryController@getTotalCategoriesAjax']);
@@ -32,6 +32,16 @@ Route::group(['middleware'=>'isroleadmin'], function(){
                 Route::get('delete/{id}',['uses'=>'CategoryController@getDeleteCateAjax']);
     		});
     	});
+        Route::group(['prefix' => 'user'], function(){
+            Route::get('list',['uses'=>'UserController@getUserList']);
+            
+            Route::group(['prefix' => 'ajax'], function(){
+                Route::get('list/{max}/{page}',['uses'=>'UserController@getListUserAjax']);
+                Route::get('total',['uses'=>'UserController@getTotalUserAjax']);
+                Route::get('delete/{id}',['uses'=>'UserController@getDeleteUserAjax']);
+            });
+        });
+
 	});
 });
 Route::group(['middleware'=>'isrolemanager'], function(){
@@ -45,10 +55,15 @@ Route::group(['middleware'=>'isrolemanager'], function(){
             Route::post('add',['uses'=>'VideoController@postAddVideoManager']);
             Route::get('edit/{id}',['uses'=>'VideoController@getEditVideoManager']);
             Route::post('edit/{id}',['uses'=>'VideoController@postEditVideoManager']);
+            Route::get('upload',['uses'=>'VideoController@getUpload']);
+            Route::post('upload',['uses'=>'VideoController@postUpload']);
+
+
             Route::group(['prefix' => 'ajax'], function(){
                 Route::get('list/{max}/{page}',['uses'=>'VideoController@getVideoListAjax']);
                 Route::get('total',['uses'=>'VideoController@getTotalVideosAjax']);
                 Route::get('delete/{id}',['uses'=>'VideoController@getDeleteVideosAjax']);
+                Route::post('upload',['uses'=>'VideoController@postFileUploadAjax']);
             });
         });
 	});

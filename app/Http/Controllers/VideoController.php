@@ -11,6 +11,7 @@ use App\VideoCate;
 use App\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Filesystem\Factory;
 class VideoController extends Controller
 {
 	public function getVideoListManager()
@@ -44,7 +45,7 @@ class VideoController extends Controller
 	}
 	public function getTotalVideosAjax()
 	{
-		return Category::count();
+		return Video::count();
 	}
 
 
@@ -68,7 +69,14 @@ class VideoController extends Controller
 		$video->created_by= $user->id;
 		$cates = $request->cblCate;
 		//dd($cates);
-
+		 $file = $request->file('fileVideo');
+     //   dd(strlen($file));
+        if(strlen($file) >0){
+            $filename = str_slug($request->txtTitle, "-").'-'.time().'_'.$file->getClientOriginalName();
+            $destinationPath = 'upload/videos';
+            $file->move($destinationPath,$filename);
+            $video->url= $filename;
+        }
 		$video->duration = "";
 		$video->save();
 		foreach($cates as $value){
@@ -80,6 +88,25 @@ class VideoController extends Controller
 		}
 		return redirect("managersites/video/list")->with(['flash_level'=>'alert-success','flash_message' => 'Thêm video thành công'] );
 
+    }
+    public function getUpload()
+    {
+        return view('managers.videos.upload');
+    }
+    public function postUpload(Request $request)
+    {
+        $file = $request->file('fileVideo');
+     //   dd(strlen($file));
+        if(strlen($file) >0){
+            $filename = str_slug($request->txtTitle, "-").'-'.time().'_'.$file->getClientOriginalName();
+            $destinationPath = 'upload/videos';
+            $file->move($destinationPath,$filename);
+           // $video->url= $filename;
+      //      $disk = Storage::disk('local');
+         //   $disk->put($filename, fopen($file, 'r+'));
+        }
+
+        return $filename;
     }
     public function getDeleteVideosAjax($id)
     {
@@ -128,5 +155,9 @@ class VideoController extends Controller
 			$videoCate->save();
 		}
 		return redirect("managersites/video/list")->with(['flash_level'=>'alert-success','flash_message' => 'Sửa video thành công'] );
+    }
+    public function postFileUpload(Request $request)
+    {
+    	# code...
     }
 }

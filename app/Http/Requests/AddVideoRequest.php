@@ -25,6 +25,7 @@ class AddVideoRequest extends Request
     {
         return [
             'txtTitle'=>'required',
+            'txtUrl'=>'required',
         ];
     }
 }
